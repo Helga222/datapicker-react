@@ -1,0 +1,41 @@
+.dp__content {
+  display: flex;
+  gap: 2px;
+  height: 40px;
+  margin: 0 5px;
+}
+.dp__item{
+  background-color: aqua;
+}
+
+.dp__icons{}
+.MuiFilledInput-input:hover{
+  cursor: pointer;
+}
+
+.dp__menuButton{
+  width: 80px;
+  white-space: nowrap;
+  }
+.dp__date{
+  flex: 1 1 auto;
+}
+
+.dp__refreshButton{
+  width: 40px;
+}
+.dp__popup{
+  width: 500px;
+  height: 500px;
+  background-color: #fff;
+  border: 1px solid #000;
+  position:relative; 
+  top:20px;
+  left:10px;
+}
+.dp__popup_visible{
+  display: block;
+}
+.dp__popup_invisible{
+  display: none;
+}
