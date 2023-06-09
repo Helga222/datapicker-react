@@ -7,11 +7,11 @@
 .dp__item{
   background-color: aqua;
 }
-
-.dp__icons{}
-.MuiFilledInput-input:hover{
+.dp__item:hover{
   cursor: pointer;
 }
+
+.dp__icons{}
 
 .dp__menuButton{
   width: 80px;
@@ -19,6 +19,15 @@
   }
 .dp__date{
   flex: 1 1 auto;
+  display: flex;
+}
+
+.dp__date__content{
+  flex: 1 1 auto;
+  align-items: center;
+}
+.dp__icon{
+  margin: auto;
 }
 
 .dp__refreshButton{
