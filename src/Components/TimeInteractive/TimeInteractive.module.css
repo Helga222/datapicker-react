@@ -1,0 +1,10 @@
+.content{
+  display: flex;
+}
+.ti__item{
+  flex: 1 1 auto;
+  align-items: center;
+}
+.ti__icon{
+  margin: auto;
+}

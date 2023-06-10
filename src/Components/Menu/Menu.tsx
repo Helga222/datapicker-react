@@ -10,15 +10,13 @@ export const Menu = (props:any) => {
     unit:'секунды'
   })
 
-  const handleCahngeSelect = (event:any)=>{
-    //event.preventDefault();
-    event.stopPropagation();
+  const handleCahngeSelect = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>)=>{
+    event.preventDefault();
     let inputs = { [event.target.name]: event.target.value };
     setTimeString({ ...timeString, ...inputs }); 
   }
 
-  const handleClick = (event:any)=>{
-    //event.preventDefault();
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>)=>{
     event.stopPropagation();
     props.onHandleClick(timeString);
   }

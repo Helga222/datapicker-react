@@ -3,13 +3,9 @@ import styles from "./DataPicker.module.css";
 import { Menu } from "../Menu/Menu";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Modal from "@mui/material/Modal";
 import Dialog from "@mui/material/Dialog";
-import TextField from "@mui/material/TextField";
-import { FilledInput } from "@mui/material";
 import { TimeString } from "../../types";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { normalize } from "path";
+import { TimeVidget } from "../TimeVidget/TimeVidget";
 export const DataPicker = () => {
   const [visible, setVisible] = useState(false);
   const modalRef = useRef(null);
@@ -19,7 +15,7 @@ export const DataPicker = () => {
     unit: "секунды",
   });
 
-  const handleClick = (e: any) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     //e.stopPropagation();
     setVisible(true);
   };
@@ -52,41 +48,11 @@ export const DataPicker = () => {
           </div>
         </button>
         <div className={`${styles.dp__item} ${styles.dp__date}`}>
-          {/*<FilledInput
-            readOnly
-            disableUnderline={true}
-            className={styles.dp__textInput}
-            sx={{ input: { cursor: 'pointer' } }}
-            fullWidth
-            id="fullWidth"
-            value={`${timeString.since} ${timeString.time} ${timeString.unit}`}
-            hiddenLabel
-            size="small"
-          />*/}
-
-          <div className={styles.dp__date__content}>
-            <TextField
-              size="small"
-              fullWidth
-              inputProps={{ style: { textAlign: "right" } }}
-              value={`${timeString.since} ${timeString.time} ${timeString.unit}`}
-              hiddenLabel
-              variant="filled"
-            />
-          </div>
-          <div className={styles.dp__icon}>
-
-          <ArrowForwardIcon fontSize="medium"/>
-          </div>
-          <div className={styles.dp__date__content}>
-            <TextField
-              size="small"
-              fullWidth
-              value="now"
-              hiddenLabel
-              variant="filled"
-            />
-          </div>
+          <TimeVidget
+            since={timeString.since}
+            time={timeString.time}
+            unit={timeString.unit}
+          />
         </div>
         <button className={`${styles.dp__item} ${styles.dp__refreshButton}`}>
           3
