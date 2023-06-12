@@ -39,7 +39,7 @@ export const DataPicker = () => {
 
           <div
             className={`${styles.dp__popup} ${
-              visible ? styles.dp__popup_visible : styles.dp__popup_visible
+              visible ? styles.dp__popup_visible : styles.dp__popup_invisible
             }`}
           >
             <Dialog open={visible} ref={modalRef}>

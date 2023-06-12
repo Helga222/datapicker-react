@@ -1,0 +1,16 @@
+.content{
+
+}
+.tab__content{
+  display: flex;
+  gap:3px;
+  width: 430px;
+}
+.tab__number{
+  flex:1 1 auto;
+  text-align: center;
+}
+.tab__input{
+  flex:1 1 auto;
+  text-align: center;
+}
