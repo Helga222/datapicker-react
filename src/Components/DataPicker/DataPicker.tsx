@@ -6,14 +6,16 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Dialog from "@mui/material/Dialog";
 import { TimeString } from "../../types";
 import { TimeVidget } from "../TimeVidget/TimeVidget";
+import dayjs, { Dayjs } from "dayjs";
 export const DataPicker = () => {
   const [visible, setVisible] = useState(false);
   const modalRef = useRef(null);
-  const [timeString, setTimeString] = useState({
+  const [timeString, setTimeString] = useState<TimeString>({
     since: "за последние",
     time: 0,
     unit: "секунды",
   });
+
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     //e.stopPropagation();
@@ -48,11 +50,7 @@ export const DataPicker = () => {
           </div>
         </button>
         <div className={`${styles.dp__item} ${styles.dp__date}`}>
-          <TimeVidget
-            since={timeString.since}
-            time={timeString.time}
-            unit={timeString.unit}
-          />
+          <TimeVidget since={timeString.since} time={timeString.time} unit={timeString.unit}          />
         </div>
         <button className={`${styles.dp__item} ${styles.dp__refreshButton}`}>
           3
@@ -61,3 +59,7 @@ export const DataPicker = () => {
     </div>
   );
 };
+function getState() {
+  throw new Error("Function not implemented.");
+}
+

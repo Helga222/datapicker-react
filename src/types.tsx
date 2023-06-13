@@ -3,3 +3,8 @@ export type TimeString = {
   time:number,
   unit:string
 }
+
+export type DPType = {
+  dateStart:Date,
+  dateEnd:Date,
+}

@@ -6,9 +6,10 @@ import FilledInput from "@mui/material/FilledInput";
 import { useState } from "react";
 import { TimeInteractive } from "../TimeInteractive/TimeInteractive";
 
-export const TimeVidget = ({ since, time, unit }: TimeString) => {
-  const[visible,setVisible] = useState(true);
 
+
+export const TimeVidget = ( {since,time,unit}:TimeString) => {
+  const[visible,setVisible] = useState(true);
 
   return (
     <div>

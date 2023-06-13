@@ -7,23 +7,40 @@ import { DigitalClock } from "@mui/x-date-pickers/DigitalClock/DigitalClock";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { PickerSelectionState } from "@mui/x-date-pickers/internals/hooks/usePicker";
+import dayjs, { Dayjs } from "dayjs";
+import { useDispatch, useStore } from "react-redux";
+import { DPType } from "../../types";
+import { setDateStart } from "../../Redux/actions";
+interface IDateMenuProps {
+  onDateChange: (date:Date) => void;
+  //
+}
 
-export const DateMenu = () => {
-
-  const [date, setDate] = useState<any>();
+export const DateMenu = (props:IDateMenuProps) => {
   const [value, setValue] = useState(0);
+  const curState = useStore<DPType>().getState();
+  const [curDate,setCurDate] = useState(dayjs(curState.dateStart));
+  const dispatch = useDispatch();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  const handleCalendarChange = (e:any)=>{
-    const t = 2;
-    
+  const handleCalendarChange = (value: dayjs.Dayjs | null, selectionState?: PickerSelectionState | undefined)=>{
+    if (value){
+      setCurDate(value);
+      const date = value.toDate();
+      props.onDateChange(date);
+      dispatch(setDateStart(date));
+    }
   }
 
-  const handleClockChange = (e:any)=>{
-    const t = 2;
-    const ee = date;
+  const handleClockChange = (value: any, selectionState?: PickerSelectionState | undefined, selectedView?: "hours" | undefined)=>{
+    if (value){
+      setCurDate(value);
+      const date = value.toDate();
+      props.onDateChange(date);
+      dispatch(setDateStart(date));
+    }
   }
 
 
@@ -36,8 +53,8 @@ export const DateMenu = () => {
       </Tabs>
       <TabPanel value={value} index={0}>
         <div className={styles.tab__content}>
-          <DateCalendar sx={{ flex: "1 0 auto" }} onChange={(value)=>setDate(value)} value={date}/>
-          <DigitalClock ampm={false} sx={{ marginTop: "40px"}} onChange={handleClockChange}/>
+          <DateCalendar sx={{ flex: "1 0 auto" }} onChange={handleCalendarChange} value={curDate}/>
+          <DigitalClock ampm={false} sx={{ marginTop: "40px"}} onChange={handleClockChange} value={curDate}/>
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
