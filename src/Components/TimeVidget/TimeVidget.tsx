@@ -1,6 +1,6 @@
 
 import styles from "./TimeVidget.module.css";
-import { TimeString } from "../../types";
+import { DPType, DateFunc, DateType,TimeString } from "../../types";
 
 import FilledInput from "@mui/material/FilledInput";
 import { useState } from "react";
@@ -8,7 +8,7 @@ import { TimeInteractive } from "../TimeInteractive/TimeInteractive";
 
 
 
-export const TimeVidget = ( {since,time,unit}:TimeString) => {
+export const TimeVidget = ( props:{timeString:TimeString,curDate:DPType,onDateChange:DateFunc}) => {
   const[visible,setVisible] = useState(true);
 
   return (
@@ -21,13 +21,13 @@ export const TimeVidget = ( {since,time,unit}:TimeString) => {
             fullWidth
             id="fullWidth"
             inputProps={{ style: { textAlign: "center" } }}
-            value={`${since} ${time} ${unit}`}
+            value={`${props.timeString.since} ${props.timeString.time} ${props.timeString.unit}`}
             hiddenLabel
             size="small"
             onClick={()=>setVisible(!visible)}
           />
       :
-      <TimeInteractive since={since} time={time} unit={unit} />
+      <TimeInteractive timeString={props.timeString} curDate={props.curDate} onDateChange={props.onDateChange} />
       }
     </div>
     

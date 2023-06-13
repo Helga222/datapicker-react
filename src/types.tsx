@@ -15,3 +15,6 @@ export type DPType = {
   dateEnd:string,
   editedDate:DateType
 }
+
+export type DateFunc = (date:Date,type:DateType) => void;
+  //

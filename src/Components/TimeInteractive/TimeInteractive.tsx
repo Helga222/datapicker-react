@@ -1,5 +1,5 @@
 import TextField from "@mui/material/TextField";
-import { DPType, DateType, TimeString } from "../../types";
+import { DPType, DateFunc, DateType,TimeString } from "../../types";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import styles from "./TimeInteractive.module.css";
@@ -10,21 +10,20 @@ import { Dayjs } from "dayjs";
 import { useStore } from "react-redux/es/hooks/useStore";
 import { useDispatch, useSelector } from "react-redux";
 import { setDateType } from "../../Redux/actions";
-export const TimeInteractive = (dateString: TimeString) => {
+export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onDateChange:DateFunc}) => {
   const [anchorElStart, setAnchorElStart] = useState<HTMLElement | null>(null);
   const [anchorElEnd, setAnchorElEnd] = useState<HTMLElement | null>(null);
   
-  const { getState } = useStore<DPType>();
+  //const { getState } = useStore<DPType>();
 
-  const [curDateStart, setCurDateStart] = useState('');
-  //const [curDateEnd, setCurDateEnd] = useState<Date>();
+  const [curDateStart, setCurDateStart] = useState(props.curDate.dateStart);
+  const [curDateEnd, setCurDateEnd] = useState(props.curDate.dateEnd);
+  const [dateType, setDateType] = useState(props.curDate.editedDate);
 
   useEffect(() => {
-    const curState = getState();
-    
-    const test = new Date(curState.dateStart);
-    setCurDateStart(test.toLocaleDateString());
-  }, [getState]);
+    setCurDateStart(props.curDate.dateStart);
+    setCurDateEnd(props.curDate.dateEnd);
+  }, [props.curDate]);
 
   const handleClickStart = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -32,6 +31,7 @@ export const TimeInteractive = (dateString: TimeString) => {
     setAnchorElEnd(null);
     
     setAnchorElStart(event.currentTarget);
+    setDateType(DateType.StartDate);
     //dispatch(setDateType(DateType.StartDate));
   };
 
@@ -40,6 +40,7 @@ export const TimeInteractive = (dateString: TimeString) => {
   ) => {
     setAnchorElStart(null);
     setAnchorElEnd(event.currentTarget);
+    setDateType(DateType.EndDate);
     //dispatch(setDateType(DateType.EndDate));
   };
 
@@ -86,7 +87,7 @@ export const TimeInteractive = (dateString: TimeString) => {
         >
           <div>
             {" "}
-            <DateMenu />
+            <DateMenu type={dateType} onDateChange={props.onDateChange}/>
           </div>
         </Popover>
       </div>
@@ -94,7 +95,7 @@ export const TimeInteractive = (dateString: TimeString) => {
         <ArrowForwardIcon fontSize="medium" />
       </div>
       <div className={styles.ti__item}>
-        <TextField
+      <TextField
           aria-describedby={idEnd}
           size="small"
           fullWidth
@@ -102,7 +103,7 @@ export const TimeInteractive = (dateString: TimeString) => {
           name="dateEnd"
           variant="filled"
           onClick={handleClickEnd}
-          value={`${curDateStart}`}
+          value={`${curDateEnd}`}
         />
         <Popover
           id={idEnd}
@@ -120,7 +121,7 @@ export const TimeInteractive = (dateString: TimeString) => {
         >
           <div>
             {" "}
-            <DateMenu />
+            <DateMenu type={dateType} onDateChange={props.onDateChange}/>
           </div>
         </Popover>
       </div>

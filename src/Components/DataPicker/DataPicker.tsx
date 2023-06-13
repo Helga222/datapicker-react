@@ -4,7 +4,7 @@ import { Menu } from "../Menu/Menu";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Dialog from "@mui/material/Dialog";
-import { TimeString } from "../../types";
+import { DPType, DateType, TimeString } from "../../types";
 import { TimeVidget } from "../TimeVidget/TimeVidget";
 import dayjs, { Dayjs } from "dayjs";
 export const DataPicker = () => {
@@ -15,6 +15,21 @@ export const DataPicker = () => {
     time: 0,
     unit: "секунды",
   });
+  const now = new Date().toISOString(); 
+  const [curDate,setCurDate] = useState<DPType>({
+    dateStart: now,
+    dateEnd: now,
+    editedDate: DateType.StartDate,
+  })
+
+  const handleDateChange = (date:Date,type:DateType)=>{
+    const dateString = date.toISOString();
+    if (type===DateType.StartDate){
+      setCurDate({...curDate,dateStart:dateString})
+    }
+    else setCurDate({...curDate,dateEnd:dateString});
+    
+  }
 
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -50,7 +65,7 @@ export const DataPicker = () => {
           </div>
         </button>
         <div className={`${styles.dp__item} ${styles.dp__date}`}>
-          <TimeVidget since={timeString.since} time={timeString.time} unit={timeString.unit}          />
+          <TimeVidget timeString={timeString}  curDate={curDate} onDateChange={handleDateChange}/>
         </div>
         <button className={`${styles.dp__item} ${styles.dp__refreshButton}`}>
           3
