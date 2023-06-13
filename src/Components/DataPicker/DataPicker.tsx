@@ -4,16 +4,16 @@ import { Menu } from "../Menu/Menu";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Dialog from "@mui/material/Dialog";
-import { DPRange, DPType, DateType, TimeString } from "../../types";
+import { DPRange, DPType, DateType, LinkType, TimeString } from "../../types";
 import { TimeVidget } from "../TimeVidget/TimeVidget";
 import dayjs, { Dayjs } from "dayjs";
 import Popover from "@mui/material/Popover";
-import { calcDate } from "../../utils";
+import { calcDate, calcThisDay, calcYesterday } from "../../utils";
 
 interface IDataPicker {
-  onChange:(range: DPRange) => void
+  onChange: (range: DPRange) => void;
 }
-export const DataPicker = (props:IDataPicker) => {
+export const DataPicker = (props: IDataPicker) => {
   const modalRef = useRef(null);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [timeString, setTimeString] = useState<TimeString>({
@@ -27,8 +27,6 @@ export const DataPicker = (props:IDataPicker) => {
     dateEnd: now,
     editedDate: DateType.StartDate,
   });
-
-
 
   const handleDateChange = (date: Date, type: DateType) => {
     const dateString = date.toISOString();
@@ -48,6 +46,26 @@ export const DataPicker = (props:IDataPicker) => {
     const range = calcDate(time);
     props.onChange(range);
 
+    handleClose();
+  };
+
+  const handleLinkClick = (range: LinkType) => {
+    let date;
+    switch (range) {
+      case "yesterday":
+        date = calcYesterday();
+        return;
+
+      case "today":
+        date = calcThisDay();
+        return date;
+      default:
+        date = calcThisDay();
+        return date;
+    }
+
+    props.onChange(date);
+    //setTimeString();
 
     handleClose();
   };
@@ -92,7 +110,7 @@ export const DataPicker = (props:IDataPicker) => {
         >
           <div>
             {" "}
-            <Menu onHandleClick={handleApplyDate} timeString={timeString}/>
+            <Menu onHandleLink={handleLinkClick} onHandleClick={handleApplyDate} timeString={timeString} />
           </div>
         </Popover>
 

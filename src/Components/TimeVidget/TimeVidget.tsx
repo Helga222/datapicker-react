@@ -8,7 +8,7 @@ import { TimeInteractive } from "../TimeInteractive/TimeInteractive";
 
 
 
-export const TimeVidget = ( props:{timeString:TimeString,curDate:DPType,onDateChange:DateFunc}) => {
+export const TimeVidget = ( props:{timeString:TimeString ,curDate:DPType,onDateChange:DateFunc}) => {
   const[visible,setVisible] = useState(true);
 
   return (

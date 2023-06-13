@@ -1,12 +1,17 @@
 import Link from "@mui/material/Link";
 import styles from "./Menu.module.css";
 import { useState } from "react";
-import { TimeString } from "../../types";
+import { LinkType, TimeString } from "../../types";
 
 interface IMenu {
   timeString:TimeString,
-  onHandleClick:(time: TimeString) => void
+  onHandleClick:(time: TimeString) => void,
+  onHandleLink:(message:string)=>void
 }
+interface ILink {
+  e:React.MouseEvent<HTMLAnchorElement, MouseEvent> | React.MouseEvent<HTMLSpanElement>
+}
+
 export const Menu = (props:IMenu) => {
 
   const [timeString,setTimeString] = useState(props.timeString)
@@ -20,6 +25,11 @@ export const Menu = (props:IMenu) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>)=>{
     event.stopPropagation();
     props.onHandleClick(timeString);
+  }
+
+  const handleDate = (e: ILink["e"],type:LinkType)=>{
+    e.preventDefault();
+    props.onHandleLink(type);
   }
 
   return (
@@ -57,11 +67,11 @@ export const Menu = (props:IMenu) => {
       <div className={`${styles.item} ${styles.menu__common}`}>
         Commonly used
         <div className={`${styles.menu__grid}`}>
-          <div>Сегодня</div>
-          <div>Эта неделя</div>
-          <div>Этот месяц</div>
+          <div><Link underline="hover"  href="#">Today</Link></div>
+          <div><Link underline="hover" href="#">This week</Link></div>
+          <div><Link underline="hover" href="#">This week</Link>calcYesterday</div>
           <div>Этот год</div>
-          <div>Вчера</div>
+          <div><Link underline="hover" href="#" onClick={(e)=>{handleDate(e,'yesterday')}} >Yesterday</Link></div>
           <div>Неделя до даты</div>
           <div>Месяц до даты</div>
           <div>Год даты</div>

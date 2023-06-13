@@ -22,5 +22,7 @@ export type DPRange = {
   endDate:Dayjs,
 }
 
+export type LinkType = 'yesterday' | 'today' | 'this week';  
+
 export type DateFunc = (date:Date,type:DateType) => void;
   //
