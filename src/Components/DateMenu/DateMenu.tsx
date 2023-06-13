@@ -1,5 +1,5 @@
 import styles from "./DateMenu.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { TabPanel } from "../TabPanel";
@@ -7,52 +7,85 @@ import { DigitalClock } from "@mui/x-date-pickers/DigitalClock/DigitalClock";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { PickerSelectionState } from "@mui/x-date-pickers/internals/hooks/usePicker";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs, { Dayjs, ManipulateType } from "dayjs";
 import { useDispatch, useStore } from "react-redux";
-import { DPType, DateType,DateFunc } from "../../types";
+import { DPType, DateType, DateFunc } from "../../types";
 import { setDateEnd, setDateStart, setDateType } from "../../Redux/actions";
 
-
-export const DateMenu = (props:{type:DateType,onDateChange:DateFunc}) => {
-
+export const DateMenu = (props: { type: DateType; onDateChange: DateFunc }) => {
   const [value, setValue] = useState(0);
   //const curState = useStore<DPType>().getState();
-  const [curDate,setCurDate] = useState(dayjs('2022-04-17T15:30'));
- // const dispatch = useDispatch();
+  const [curDate, setCurDate] = useState(dayjs("2022-04-17T15:30"));
+  const [relativeDate, setRelativeDate] = useState({
+    units: "seconds",
+    time: 0,
+  });
+  // const dispatch = useDispatch();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  const onDateChange =(value: dayjs.Dayjs | null)=>{
-    if (value){
+  useEffect(() => {
+    // this hook will get called every time myArr has changed
+    // perform some action every time myArr is updated
+    onDateChange(curDate);
+  }, [curDate]);
+
+  const onDateChange = (value: dayjs.Dayjs | null) => {
+    if (value) {
       setCurDate(value);
       const date = value.toDate();
-      if (props.type===DateType.StartDate){
-        props.onDateChange(date,DateType.StartDate);
-      }
-      else props.onDateChange(date,DateType.EndDate);
+      if (props.type === DateType.StartDate) {
+        props.onDateChange(date, DateType.StartDate);
+      } else props.onDateChange(date, DateType.EndDate);
     }
-  }
+  };
 
-  const handleCalendarChange = (value: dayjs.Dayjs | null, selectionState?: PickerSelectionState | undefined)=>{
+  const handleCalendarChange = (
+    value: dayjs.Dayjs | null,
+    selectionState?: PickerSelectionState | undefined
+  ) => {
     onDateChange(value);
-      /*if (curState.editedDate==DateType.StartDate){
+    /*if (curState.editedDate==DateType.StartDate){
         dispatch(setDateStart(date.toISOString()));
       }
       else dispatch(setDateEnd(date.toISOString()));*/
-   
-  }
+  };
 
-  const handleClockChange = (value: any, selectionState?: PickerSelectionState | undefined, selectedView?: "hours" | undefined)=>{
+  const handleClockChange = (
+    value: any,
+    selectionState?: PickerSelectionState | undefined,
+    selectedView?: "hours" | undefined
+  ) => {
     onDateChange(value);
 
-      /*if (curState.editedDate==DateType.StartDate){
+    /*if (curState.editedDate==DateType.StartDate){
         dispatch(setDateType(date.toISOString()));
       }
      else dispatch(setDateEnd(date.toISOString()));*/
-   
-  }
+  };
 
+  const handleRelativeTimeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    event.preventDefault();
+    let newTime = Number(event.target.value);
+    setRelativeDate({ ...relativeDate, time: newTime });
+
+    let date = curDate.subtract(newTime, relativeDate.units as ManipulateType);
+    setCurDate(date);
+  };
+
+  const handleRelativeUnitChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    event.preventDefault();
+    let newUnits = event.target.value as ManipulateType;
+    setRelativeDate({ ...relativeDate, units: newUnits });
+
+    let date = curDate.subtract(relativeDate.time, newUnits);
+    setCurDate(date);
+  };
 
   return (
     <div className={styles.content}>
@@ -63,8 +96,17 @@ export const DateMenu = (props:{type:DateType,onDateChange:DateFunc}) => {
       </Tabs>
       <TabPanel value={value} index={0}>
         <div className={styles.tab__content}>
-          <DateCalendar sx={{ flex: "1 0 auto" }} onChange={handleCalendarChange} value={curDate}/>
-          <DigitalClock ampm={false} sx={{ marginTop: "40px"}} onChange={handleClockChange} value={curDate}/>
+          <DateCalendar
+            sx={{ flex: "1 0 auto" }}
+            onChange={handleCalendarChange}
+            value={curDate}
+          />
+          <DigitalClock
+            ampm={false}
+            sx={{ marginTop: "40px" }}
+            onChange={handleClockChange}
+            value={curDate}
+          />
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -74,19 +116,29 @@ export const DateMenu = (props:{type:DateType,onDateChange:DateFunc}) => {
             className={`${styles.tab__number} ${styles.menu__select__item}`}
             defaultValue={0}
             type="number"
+            onChange={handleRelativeTimeChange}
           />
           <select
-            name="unit"
+            name="units"
             className={`${styles.tab__input} ${styles.menu__select__item}`}
+            onChange={handleRelativeUnitChange}
           >
-            <option value="секунд">Seconds ago</option>
-            <option value="минут">Minutes ago</option>
-            <option value="часов">Hours ago</option>
-            <option value="дней">Days ago</option>
-            <option value="недель">Weeks ago</option>
-            <option value="недель">Years ago</option>
+            <option value="second">Seconds ago</option>
+            <option value="minute">Minutes ago</option>
+            <option value="hour">Hours ago</option>
+            <option value="day">Days ago</option>
+            <option value="week">Weeks ago</option>
+            <option value="year">Years ago</option>
           </select>
+
         </div>
+        <input
+            name="time"
+            className={`${styles.tab__number} ${styles.menu__select__item}`}
+            defaultValue={0}
+            type="text"
+            value={curDate.toString()}
+          />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <div className={styles.tab__content}></div>
