@@ -1,14 +1,15 @@
 import Link from "@mui/material/Link";
 import styles from "./Menu.module.css";
 import { useState } from "react";
+import { TimeString } from "../../types";
 
-export const Menu = (props:any) => {
+interface IMenu {
+  timeString:TimeString,
+  onHandleClick:(time: TimeString) => void
+}
+export const Menu = (props:IMenu) => {
 
-  const [timeString,setTimeString] = useState({
-    since:'за последние',
-    time:0,
-    unit:'секунды'
-  })
+  const [timeString,setTimeString] = useState(props.timeString)
 
   const handleCahngeSelect = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>)=>{
     event.preventDefault();
@@ -29,27 +30,26 @@ export const Menu = (props:any) => {
           <select name="since" onChange={handleCahngeSelect}
             className={`${styles.menu__select__input} ${styles.menu__select__item}`}
           >
-            <option value="За последние">За последние</option>
-            <option value="Начиная с">Начиная с</option>
+            <option value="Last">Last</option>
+            <option value="Next">Next</option>
           </select>
-          <input name="time" onChange={handleCahngeSelect}
+          <input name="time" onChange={handleCahngeSelect} defaultValue={0}
             className={`${styles.menu__select__number} ${styles.menu__select__item}`}
             type="number"
           />
           <select name="unit" onChange={handleCahngeSelect}
             className={`${styles.menu__select__input} ${styles.menu__select__item}`}
           >
-            <option value="секунд">секунды</option>
-            <option value="минут">минуты</option>
-            <option value="часов">часы</option>
-            <option value="дней">дни</option>
-            <option value="недель">недели</option>
+            <option value="second">seconds</option>
+            <option value="minute">minutes</option>
+            <option value="hour">hours</option>
+            <option value="day">days</option>
+            <option value="week">weeks</option>
           </select>
           <button
             className={`${styles.menu__select__button} ${styles.menu__select__item}`} onClick={handleClick}
-          >
-            
-            Применить
+          >            
+            Apply
           </button>
         </div>
       </div>

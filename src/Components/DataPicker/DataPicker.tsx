@@ -4,43 +4,64 @@ import { Menu } from "../Menu/Menu";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Dialog from "@mui/material/Dialog";
-import { DPType, DateType, TimeString } from "../../types";
+import { DPRange, DPType, DateType, TimeString } from "../../types";
 import { TimeVidget } from "../TimeVidget/TimeVidget";
 import dayjs, { Dayjs } from "dayjs";
-export const DataPicker = () => {
-  const [visible, setVisible] = useState(false);
+import Popover from "@mui/material/Popover";
+import { calcDate } from "../../utils";
+
+interface IDataPicker {
+  onChange:(range: DPRange) => void
+}
+export const DataPicker = (props:IDataPicker) => {
   const modalRef = useRef(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [timeString, setTimeString] = useState<TimeString>({
-    since: "за последние",
+    since: "Last",
     time: 0,
-    unit: "секунды",
+    unit: "second",
   });
-  const now = new Date().toISOString(); 
-  const [curDate,setCurDate] = useState<DPType>({
+  const now = new Date().toISOString();
+  const [curDate, setCurDate] = useState<DPType>({
     dateStart: now,
     dateEnd: now,
     editedDate: DateType.StartDate,
-  })
+  });
 
-  const handleDateChange = (date:Date,type:DateType)=>{
+
+
+  const handleDateChange = (date: Date, type: DateType) => {
     const dateString = date.toISOString();
-    if (type===DateType.StartDate){
-      setCurDate({...curDate,dateStart:dateString})
-    }
-    else setCurDate({...curDate,dateEnd:dateString});
-    
-  }
-
+    if (type === DateType.StartDate) {
+      setCurDate({ ...curDate, dateStart: dateString });
+    } else setCurDate({ ...curDate, dateEnd: dateString });
+  };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //e.stopPropagation();
-    setVisible(true);
+    if (anchorEl) {
+      setAnchorEl(null);
+    } else setAnchorEl(e.currentTarget);
   };
 
   const handleApplyDate = (time: TimeString) => {
     setTimeString(time);
-    setVisible(false);
+    const range = calcDate(time);
+    props.onChange(range);
+
+
+    handleClose();
   };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleChange = (date: Date) => {
+    //setCurDate(date);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <div className={styles.wrapper}>
@@ -53,19 +74,34 @@ export const DataPicker = () => {
             <CalendarMonthIcon />
             <KeyboardArrowDownIcon />
           </div>
-
-          <div
-            className={`${styles.dp__popup} ${
-              visible ? styles.dp__popup_visible : styles.dp__popup_invisible
-            }`}
-          >
-            <Dialog open={visible} ref={modalRef}>
-              <Menu onHandleClick={handleApplyDate} />
-            </Dialog>
-          </div>
         </button>
+
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+        >
+          <div>
+            {" "}
+            <Menu onHandleClick={handleApplyDate} timeString={timeString}/>
+          </div>
+        </Popover>
+
         <div className={`${styles.dp__item} ${styles.dp__date}`}>
-          <TimeVidget timeString={timeString}  curDate={curDate} onDateChange={handleDateChange}/>
+          <TimeVidget
+            timeString={timeString}
+            curDate={curDate}
+            onDateChange={handleDateChange}
+          />
         </div>
         <button className={`${styles.dp__item} ${styles.dp__refreshButton}`}>
           3
@@ -77,4 +113,3 @@ export const DataPicker = () => {
 function getState() {
   throw new Error("Function not implemented.");
 }
-

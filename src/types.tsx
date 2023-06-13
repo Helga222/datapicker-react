@@ -1,7 +1,9 @@
+import { Dayjs, ManipulateType } from "dayjs";
+
 export type TimeString = {
-  since:string,
+  since:'Last' | 'Next',
   time:number,
-  unit:string
+  unit:ManipulateType
 }
 
 export enum DateType{
@@ -9,11 +11,15 @@ export enum DateType{
   EndDate
 }
 
-
 export type DPType = {
   dateStart:string,
   dateEnd:string,
   editedDate:DateType
+}
+
+export type DPRange = {
+  startDate:Dayjs,
+  endDate:Dayjs,
 }
 
 export type DateFunc = (date:Date,type:DateType) => void;
