@@ -9,17 +9,18 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { PickerSelectionState } from "@mui/x-date-pickers/internals/hooks/usePicker";
 import dayjs, { Dayjs } from "dayjs";
 import { useDispatch, useStore } from "react-redux";
-import { DPType } from "../../types";
-import { setDateStart } from "../../Redux/actions";
+import { DPType, DateType } from "../../types";
+import { setDateEnd, setDateStart, setDateType } from "../../Redux/actions";
 interface IDateMenuProps {
   onDateChange: (date:Date) => void;
   //
 }
 
-export const DateMenu = (props:IDateMenuProps) => {
+export const DateMenu = () => {
+
   const [value, setValue] = useState(0);
   const curState = useStore<DPType>().getState();
-  const [curDate,setCurDate] = useState(dayjs(curState.dateStart));
+  const [curDate,setCurDate] = useState(dayjs('2022-04-17T15:30'));
   const dispatch = useDispatch();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -29,17 +30,21 @@ export const DateMenu = (props:IDateMenuProps) => {
     if (value){
       setCurDate(value);
       const date = value.toDate();
-      props.onDateChange(date);
-      dispatch(setDateStart(date));
-    }
+      /*if (curState.editedDate==DateType.StartDate){
+        dispatch(setDateStart(date.toISOString()));
+      }
+      else dispatch(setDateEnd(date.toISOString()));*/
+   }
   }
 
   const handleClockChange = (value: any, selectionState?: PickerSelectionState | undefined, selectedView?: "hours" | undefined)=>{
     if (value){
       setCurDate(value);
       const date = value.toDate();
-      props.onDateChange(date);
-      dispatch(setDateStart(date));
+      /*if (curState.editedDate==DateType.StartDate){
+        dispatch(setDateType(date.toISOString()));
+      }
+     else dispatch(setDateEnd(date.toISOString()));*/
     }
   }
 

@@ -1,29 +1,37 @@
 import dayjs, { Dayjs } from "dayjs";
-import { DPType } from "../types";
+import { DPType, DateType } from "../types";
 
 const now = dayjs();
-const initialState: DPType = {
-  dateStart: now.toDate(),
-  dateEnd: now.toDate(),
+const initialState = {
+  dateStart: now.toDate().toISOString(),
+  dateEnd: now.toDate().toISOString(),
+  editedDate: DateType.StartDate,
 };
 interface ActionStart {
-  dateStart: Date;
+  date: string;
   type: "SET_DATESTART";
 }
 
 interface ActionEnd {
-  dateEnd: Date;
+  date: string;
   type: "SET_DATEEND";
 }
 
-type Action = ActionStart | ActionEnd
+interface ActionType {
+  editedDate: DateType;
+  type: "SET_DATETYPE";
+}
+
+type Action = ActionStart | ActionEnd | ActionType;
 
 export const reducerDate = (state = initialState, action: Action) => {
   switch (action.type) {
     case "SET_DATESTART":
-      return { ...state, date: action.dateStart };
+      return { ...state, dateStart: action.date };
     case "SET_DATEEND":
-      return { ...state, date: action.dateEnd };
+      return { ...state, dateEnd: action.date };
+    case "SET_DATETYPE":
+      return { ...state, editedDate: action.editedDate };
     default:
       return state;
   }

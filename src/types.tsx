@@ -4,7 +4,14 @@ export type TimeString = {
   unit:string
 }
 
+export enum DateType{
+  StartDate,
+  EndDate
+}
+
+
 export type DPType = {
-  dateStart:Date,
-  dateEnd:Date,
+  dateStart:string,
+  dateEnd:string,
+  editedDate:DateType
 }
