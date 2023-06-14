@@ -12,8 +12,8 @@ export enum DateType{
 }
 
 export type DPType = {
-  dateStart:string,
-  dateEnd:string,
+  dateStart:Date,
+  dateEnd:Date,
   editedDate:DateType
 }
 

@@ -12,10 +12,10 @@ import { useDispatch, useStore } from "react-redux";
 import { DPType, DateType, DateFunc } from "../../types";
 import { setDateEnd, setDateStart, setDateType } from "../../Redux/actions";
 
-export const DateMenu = (props: { type: DateType; onDateChange: DateFunc }) => {
+export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: DateFunc }) => {
   const [value, setValue] = useState(0);
-
-  const [curDate, setCurDate] = useState(dayjs("2022-04-17T15:30"));
+  const initialDate = (props.curDate.editedDate===DateType.StartDate) ? props.curDate.dateStart : props.curDate.dateEnd;
+  const [curDate, setCurDate] = useState(dayjs(initialDate));
   const [relativeDate, setRelativeDate] = useState({
     units: "seconds",
     time: 0,
@@ -26,11 +26,18 @@ export const DateMenu = (props: { type: DateType; onDateChange: DateFunc }) => {
   };
 
   useEffect(() => {
+    if (props.curDate.editedDate===DateType.StartDate){
+      setCurDate(dayjs(props.curDate.dateStart))
+    }
+    else setCurDate(dayjs(props.curDate.dateEnd))
     onDateChange(curDate);
   }, [curDate]);
 
   const onDateChange = (value: dayjs.Dayjs | null) => {
     if (value) {
+
+
+      
       setCurDate(value);
       const date = value.toDate();
       if (props.type === DateType.StartDate) {

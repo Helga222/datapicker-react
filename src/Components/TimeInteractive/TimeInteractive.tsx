@@ -13,8 +13,7 @@ import { setDateType } from "../../Redux/actions";
 export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onDateChange:DateFunc}) => {
   const [anchorElStart, setAnchorElStart] = useState<HTMLElement | null>(null);
   const [anchorElEnd, setAnchorElEnd] = useState<HTMLElement | null>(null);
-  
-  //const { getState } = useStore<DPType>();
+
 
   const [curDateStart, setCurDateStart] = useState(props.curDate.dateStart);
   const [curDateEnd, setCurDateEnd] = useState(props.curDate.dateEnd);
@@ -32,7 +31,6 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
     
     setAnchorElStart(event.currentTarget);
     setDateType(DateType.StartDate);
-    //dispatch(setDateType(DateType.StartDate));
   };
 
   const handleClickEnd = (
@@ -41,7 +39,6 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
     setAnchorElStart(null);
     setAnchorElEnd(event.currentTarget);
     setDateType(DateType.EndDate);
-    //dispatch(setDateType(DateType.EndDate));
   };
 
   const handleClose = () => {
@@ -50,7 +47,7 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
   };
 
   const handleChange = (date: Date) => {
-    //setCurDate(date);
+
   };
 
   const openStart = Boolean(anchorElStart);
@@ -87,7 +84,7 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
         >
           <div>
             {" "}
-            <DateMenu type={dateType} onDateChange={props.onDateChange}/>
+            <DateMenu type={dateType} curDate={props.curDate} onDateChange={props.onDateChange}/>
           </div>
         </Popover>
       </div>
@@ -121,7 +118,7 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
         >
           <div>
             {" "}
-            <DateMenu type={dateType} onDateChange={props.onDateChange}/>
+            <DateMenu type={dateType} curDate={props.curDate} onDateChange={props.onDateChange}/>
           </div>
         </Popover>
       </div>

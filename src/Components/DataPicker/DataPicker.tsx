@@ -21,7 +21,7 @@ export const DataPicker = (props: IDataPicker) => {
     time: 0,
     unit: "second",
   });
-  const now = new Date().toISOString();
+  const now = new Date();
   const [curDate, setCurDate] = useState<DPType>({
     dateStart: now,
     dateEnd: now,
@@ -32,12 +32,12 @@ export const DataPicker = (props: IDataPicker) => {
     let range:DPRange;
     const dateString = date.toISOString();
     if (type === DateType.StartDate) {
-      setCurDate({ ...curDate, dateStart: dateString });
-      range = {startDate:dayjs(date),endDate:ISOStrToDPRange(curDate.dateEnd)};
+      setCurDate({ ...curDate, dateStart: date });
+      range = {startDate:dayjs(date),endDate:dayjs(curDate.dateEnd)};
 
     } else {
-      setCurDate({ ...curDate, dateEnd: dateString });
-      range = {startDate:ISOStrToDPRange(curDate.dateStart),endDate:dayjs(date)};
+      setCurDate({ ...curDate, dateEnd: date });
+      range = {startDate:dayjs(curDate.dateStart),endDate:dayjs(date)};
     };
     props.onChange(range);
   };
