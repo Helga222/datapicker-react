@@ -4,9 +4,7 @@
   height: 40px;
   margin: 0 5px;
 }
-.dp__item{
 
-}
 .dp__item:hover{
   cursor: pointer;
 }

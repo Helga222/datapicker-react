@@ -87,22 +87,22 @@ export const Menu = (props:IMenu) => {
         Recently used date ranges
         <div className={styles.menu__recently__content}>
           <div className={styles.menu__recently__item}>
-            <Link underline="hover" href="#">Link</Link>
+            <Link underline="hover" href="#">Reference (doesn`t work)</Link>
           </div>
           <div className={styles.menu__recently__item}>
-            <Link href="asfasfasf" underline="hover">Liasd asasfnk</Link>
+            <Link href="asfasfasf" underline="hover">Reference (doesn`t work)</Link>
           </div>
           <div className={styles.menu__recently__item}>
-          <Link href="asfasfasf" underline="hover">Liasasdadank</Link>
+          <Link href="asfasfasf" underline="hover">Reference (doesn`t work)</Link>
           </div>
           <div className={styles.menu__recently__item}>
-          <Link href="asfasfasf" underline="hover">Link</Link>
+          <Link href="asfasfasf" underline="hover">Reference (doesn`t work)</Link>
           </div>
           <div className={styles.menu__recently__item}>
-          <Link href="asfasfasf" underline="hover">Liasdasdank</Link>
+          <Link href="asfasfasf" underline="hover">Reference (doesn`t work)</Link>
           </div>
           <div className={styles.menu__recently__item}>
-          <Link href="asfasfasf" underline="hover">Liasdasdank</Link>
+          <Link href="asfasfasf" underline="hover">Reference (doesn`t work)</Link>
           </div>
         </div>
       </div>
@@ -124,7 +124,7 @@ export const Menu = (props:IMenu) => {
           <button
             className={`${styles.menu__select__button} ${styles.menu__select__item}`}
           >
-            Начать
+            Start
           </button>
         </div>
       </div>

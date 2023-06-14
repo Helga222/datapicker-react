@@ -39,7 +39,7 @@ export const DataPicker = (props: IDataPicker) => {
 
   const handleDateChange = (date: Date, type: DateType) => {
     let range: DPRange;
-    const dateString = date.toISOString();
+
     if (type === DateType.StartDate) {
       setCurDate({ ...curDate, dateStart: date });
       range = { startDate: dayjs(date), endDate: dayjs(curDate.dateEnd) };

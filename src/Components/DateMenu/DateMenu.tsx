@@ -115,7 +115,7 @@ export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: 
           />
           <select
             name="units"
-            className={`${styles.tab__input} ${styles.menu__select__item}`}
+            className={styles.tab__input}
             onChange={handleRelativeUnitChange} value={props.timeString.unit}
           >
             <option value="second">Seconds ago</option>
@@ -128,13 +128,6 @@ export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: 
           </select>
 
         </div>
-        <input
-            name="time"
-            className={`${styles.tab__number} ${styles.menu__select__item}`}
-            defaultValue={0}
-            type="text"
-            value={curDate.toString()}
-          />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <div className={styles.tab__content}></div>
