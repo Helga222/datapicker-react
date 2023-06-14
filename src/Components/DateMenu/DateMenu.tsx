@@ -9,10 +9,10 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { PickerSelectionState } from "@mui/x-date-pickers/internals/hooks/usePicker";
 import dayjs, { Dayjs, ManipulateType } from "dayjs";
 import { useDispatch, useStore } from "react-redux";
-import { DPType, DateType, DateFunc } from "../../types";
+import { DPType, DateType, DateFunc, TimeString } from "../../types";
 import { setDateEnd, setDateStart, setDateType } from "../../Redux/actions";
 
-export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: DateFunc }) => {
+export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: DateFunc;timeString:TimeString }) => {
   const [value, setValue] = useState(0);
   const initialDate = (props.type===DateType.StartDate) ? props.curDate.dateStart : props.curDate.dateEnd;
   const [curDate, setCurDate] = useState(dayjs(initialDate));
@@ -111,11 +111,12 @@ export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: 
             defaultValue={0}
             type="number"
             onChange={handleRelativeTimeChange}
+            value={props.timeString.time}
           />
           <select
             name="units"
             className={`${styles.tab__input} ${styles.menu__select__item}`}
-            onChange={handleRelativeUnitChange}
+            onChange={handleRelativeUnitChange} value={props.timeString.unit}
           >
             <option value="second">Seconds ago</option>
             <option value="minute">Minutes ago</option>
@@ -123,6 +124,7 @@ export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: 
             <option value="day">Days ago</option>
             <option value="week">Weeks ago</option>
             <option value="year">Years ago</option>
+          
           </select>
 
         </div>

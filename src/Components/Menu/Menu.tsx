@@ -41,7 +41,7 @@ export const Menu = (props:IMenu) => {
       <div className={`${styles.item} ${styles.menu__select}`}>
         Quick Select
         <div className={styles.menu__select__content}>
-          <select name="since" onChange={handleCahngeSelect}
+          <select name="since" onChange={handleCahngeSelect} value={timeString.since}
             className={`${styles.menu__select__input} ${styles.menu__select__item}`}
           >
             <option value="Last">Last</option>
@@ -49,10 +49,11 @@ export const Menu = (props:IMenu) => {
           </select>
           <input name="time" onChange={handleCahngeSelect} defaultValue={0}
             className={`${styles.menu__select__number} ${styles.menu__select__item}`}
-            type="number"
+            type="number" value={timeString.time}
           />
           <select name="unit" onChange={handleCahngeSelect}
             className={`${styles.menu__select__input} ${styles.menu__select__item}`}
+            value={timeString.unit}
           >
             <option value="second">seconds</option>
             <option value="minute">minutes</option>

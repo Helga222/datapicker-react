@@ -71,7 +71,7 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
         >
           <div>
             {" "}
-            <DateMenu type={dateType} curDate={props.curDate} onDateChange={props.onDateChange}/>
+            <DateMenu timeString={props.timeString}  type={dateType} curDate={props.curDate} onDateChange={props.onDateChange}/>
           </div>
         </Popover>
       </div>
@@ -105,7 +105,7 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
         >
           <div>
             {" "}
-            <DateMenu type={dateType} curDate={props.curDate} onDateChange={props.onDateChange}/>
+            <DateMenu timeString={props.timeString} type={dateType} curDate={props.curDate} onDateChange={props.onDateChange}/>
           </div>
         </Popover>
       </div>

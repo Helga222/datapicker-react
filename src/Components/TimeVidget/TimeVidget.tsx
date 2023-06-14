@@ -12,12 +12,12 @@ export const TimeVidget = ( props:{timeString:TimeString,relateTimeVisible:boole
   const[visible,setVisible] = useState(props.relateTimeVisible);
 
   useEffect(()=>{
-    setVisible(props.relateTimeVisible);
+    setVisible(prev=>prev=props.relateTimeVisible);
   },[props.relateTimeVisible]);
 
   const handleClick=(e:React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
     e.preventDefault();
-    setVisible(!visible);
+    setVisible(prev=>!prev);
   }
 
   return (

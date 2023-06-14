@@ -53,7 +53,7 @@ export const DataPicker = (props: IDataPicker) => {
   };
 
   const handleApplyDate = (time: TimeString) => {
-    setRelTimeVisible(prev=>(prev=true));
+    !relTimeVisible && setRelTimeVisible(prev=>!prev);
     setTimeString(time);
     const range = calcDate(time);
     props.onChange(range);
@@ -139,7 +139,7 @@ export const DataPicker = (props: IDataPicker) => {
           />
         </div>
         <button className={`${styles.dp__item} ${styles.dp__refreshButton}`}>
-          3
+          
         </button>
       </div>
     </div>
