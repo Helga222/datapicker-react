@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { DPRange, TimeString } from "./types";
+import { DPRange, DPType, TimeString } from "./types";
 
 const now = dayjs();
 export const calcDate = (date: TimeString): DPRange => {
@@ -28,3 +28,5 @@ export const calcYesterday = () => {
   const yestEnd = yesterday.endOf("day");
   return { startDate: yeastStart, endDate: yestEnd };
 };
+
+export const ISOStrToDPRange=(dateString:string)=>(dayjs(dateString));

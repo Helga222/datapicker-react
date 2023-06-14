@@ -8,13 +8,13 @@ import { DPRange, DPType, DateType, LinkType, TimeString } from "../../types";
 import { TimeVidget } from "../TimeVidget/TimeVidget";
 import dayjs, { Dayjs } from "dayjs";
 import Popover from "@mui/material/Popover";
-import { calcDate, calcThisDay, calcYesterday } from "../../utils";
+import { ISOStrToDPRange, calcDate, calcThisDay, calcYesterday } from "../../utils";
 
 interface IDataPicker {
   onChange: (range: DPRange) => void;
 }
 export const DataPicker = (props: IDataPicker) => {
-  const modalRef = useRef(null);
+
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [timeString, setTimeString] = useState<TimeString>({
     since: "Last",
@@ -29,10 +29,17 @@ export const DataPicker = (props: IDataPicker) => {
   });
 
   const handleDateChange = (date: Date, type: DateType) => {
+    let range:DPRange;
     const dateString = date.toISOString();
     if (type === DateType.StartDate) {
       setCurDate({ ...curDate, dateStart: dateString });
-    } else setCurDate({ ...curDate, dateEnd: dateString });
+      range = {startDate:dayjs(date),endDate:ISOStrToDPRange(curDate.dateEnd)};
+
+    } else {
+      setCurDate({ ...curDate, dateEnd: dateString });
+      range = {startDate:ISOStrToDPRange(curDate.dateStart),endDate:dayjs(date)};
+    };
+    props.onChange(range);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
