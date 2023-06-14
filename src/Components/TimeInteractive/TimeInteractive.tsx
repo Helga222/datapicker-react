@@ -3,26 +3,17 @@ import { DPType, DateFunc, DateType,TimeString } from "../../types";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import styles from "./TimeInteractive.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Popover from "@mui/material/Popover";
 import { DateMenu } from "../DateMenu/DateMenu";
-import { Dayjs } from "dayjs";
-import { useStore } from "react-redux/es/hooks/useStore";
-import { useDispatch, useSelector } from "react-redux";
-import { setDateType } from "../../Redux/actions";
+
 export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onDateChange:DateFunc}) => {
   const [anchorElStart, setAnchorElStart] = useState<HTMLElement | null>(null);
   const [anchorElEnd, setAnchorElEnd] = useState<HTMLElement | null>(null);
 
 
-  const [curDateStart, setCurDateStart] = useState(props.curDate.dateStart);
-  const [curDateEnd, setCurDateEnd] = useState(props.curDate.dateEnd);
-  const [dateType, setDateType] = useState(props.curDate.editedDate);
+  const [dateType, setDateType] = useState(DateType.StartDate);
 
-  useEffect(() => {
-    setCurDateStart(props.curDate.dateStart);
-    setCurDateEnd(props.curDate.dateEnd);
-  }, [props.curDate]);
 
   const handleClickStart = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -46,10 +37,6 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
     setAnchorElEnd(null);
   };
 
-  const handleChange = (date: Date) => {
-
-  };
-
   const openStart = Boolean(anchorElStart);
   const openEnd = Boolean(anchorElEnd);
   const idStart = openStart ? "simple-popover" : undefined;
@@ -62,7 +49,7 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
           size="small"
           fullWidth
           inputProps={{ style: { textAlign: "right" } }}
-          value={`${curDateStart}`}
+          value={`${props.curDate.dateStart}`}
           hiddenLabel
           name="dateStart"
           variant="filled"
@@ -100,7 +87,7 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
           name="dateEnd"
           variant="filled"
           onClick={handleClickEnd}
-          value={`${curDateEnd}`}
+          value={`${props.curDate.dateEnd}`}
         />
         <Popover
           id={idEnd}

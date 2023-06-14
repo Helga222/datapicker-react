@@ -25,7 +25,6 @@ export const DataPicker = (props: IDataPicker) => {
   const [curDate, setCurDate] = useState<DPType>({
     dateStart: now,
     dateEnd: now,
-    editedDate: DateType.StartDate,
   });
 
   const handleDateChange = (date: Date, type: DateType) => {

@@ -14,7 +14,6 @@ export enum DateType{
 export type DPType = {
   dateStart:Date,
   dateEnd:Date,
-  editedDate:DateType
 }
 
 export type DPRange = {

@@ -14,7 +14,7 @@ import { setDateEnd, setDateStart, setDateType } from "../../Redux/actions";
 
 export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: DateFunc }) => {
   const [value, setValue] = useState(0);
-  const initialDate = (props.curDate.editedDate===DateType.StartDate) ? props.curDate.dateStart : props.curDate.dateEnd;
+  const initialDate = (props.type===DateType.StartDate) ? props.curDate.dateStart : props.curDate.dateEnd;
   const [curDate, setCurDate] = useState(dayjs(initialDate));
   const [relativeDate, setRelativeDate] = useState({
     units: "seconds",
@@ -26,7 +26,7 @@ export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: 
   };
 
   useEffect(() => {
-    if (props.curDate.editedDate===DateType.StartDate){
+    if (props.type===DateType.StartDate){
       setCurDate(dayjs(props.curDate.dateStart))
     }
     else setCurDate(dayjs(props.curDate.dateEnd))
@@ -35,9 +35,7 @@ export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: 
 
   const onDateChange = (value: dayjs.Dayjs | null) => {
     if (value) {
-
-
-      
+ 
       setCurDate(value);
       const date = value.toDate();
       if (props.type === DateType.StartDate) {
