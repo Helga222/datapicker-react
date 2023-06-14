@@ -72,14 +72,14 @@ export const Menu = (props:IMenu) => {
       <div className={`${styles.item} ${styles.menu__common}`}>
         Commonly used
         <div className={`${styles.menu__grid}`}>
-          <div><Link underline="hover"  href="#">Today</Link></div>
-          <div><Link underline="hover" href="#">This week</Link></div>
-          <div><Link underline="hover" href="#">This week</Link>calcYesterday</div>
-          <div>Этот год</div>
+          <div><Link underline="hover"  href="#" onClick={(e)=>{handleDate(e,'today')}}>Today</Link></div>
+          <div><Link underline="hover" href="#" onClick={(e)=>{handleDate(e,'this week')}}>This week</Link></div>
+          <div><Link underline="hover" href="#" onClick={(e)=>{handleDate(e,'this month')}}>This month</Link></div>
+          <div><Link underline="hover" href="#" onClick={(e)=>{handleDate(e,'this year')}}>This month</Link></div>
           <div><Link underline="hover" href="#" onClick={(e)=>{handleDate(e,'yesterday')}} >Yesterday</Link></div>
-          <div>Неделя до даты</div>
-          <div>Месяц до даты</div>
-          <div>Год даты</div>
+          <div><Link underline="hover" href="#" onClick={(e)=>{handleDate(e,'week to date')}} >Week to date</Link></div>
+          <div><Link underline="hover" href="#" onClick={(e)=>{handleDate(e,'month to date')}} >Month to date</Link></div>
+          <div><Link underline="hover" href="#" onClick={(e)=>{handleDate(e,'year to date')}} >Year to date</Link></div>
         </div>
       </div>
       <hr className={styles.menu__hr}></hr>

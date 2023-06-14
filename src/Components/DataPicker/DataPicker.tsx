@@ -3,15 +3,19 @@ import styles from "./DataPicker.module.css";
 import { Menu } from "../Menu/Menu";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Dialog from "@mui/material/Dialog";
 import { DPRange, DPType, DateType, LinkType, TimeString } from "../../types";
 import { TimeVidget } from "../TimeVidget/TimeVidget";
 import dayjs, { Dayjs } from "dayjs";
 import Popover from "@mui/material/Popover";
 import {
-  ISOStrToDPRange,
   calcDate,
+  calcMonthToDate,
   calcThisDay,
+  calcThisMonth,
+  calcThisWeek,
+  calcThisYear,
+  calcWeekToDate,
+  calcYearToDate,
   calcYesterday,
 } from "../../utils";
 
@@ -53,41 +57,62 @@ export const DataPicker = (props: IDataPicker) => {
   };
 
   const handleApplyDate = (time: TimeString) => {
-    !relTimeVisible && setRelTimeVisible(prev=>!prev);
+    !relTimeVisible && setRelTimeVisible((prev) => !prev);
     setTimeString(time);
     const range = calcDate(time);
     props.onChange(range);
-    setCurDate({...curDate,dateStart:range.startDate.toDate(),dateEnd:range.endDate.toDate()})
+    setCurDate({
+      ...curDate,
+      dateStart: range.startDate.toDate(),
+      dateEnd: range.endDate.toDate(),
+    });
     handleClose();
   };
 
   const handleLinkClick = (range: LinkType) => {
-    let date;
+    let date: DPRange;
     switch (range) {
       case "yesterday":
         date = calcYesterday();
-        return;
-
+        break;
       case "today":
         date = calcThisDay();
-        return date;
+        break;
+      case "this week":
+        date = calcThisWeek();
+        break;
+      case "this month":
+        date = calcThisMonth();
+        break;
+      case "this year":
+        date = calcThisYear();
+        break;
+      case "week to date":
+        date = calcWeekToDate();
+        break;
+      case "month to date":
+        date = calcMonthToDate();
+        break;
+      case "year to date":
+        date = calcYearToDate();
+        break;
       default:
         date = calcThisDay();
-        return date;
+        break;
     }
 
     props.onChange(date);
-    //setTimeString();
-
+    setCurDate({
+      ...curDate,
+      dateStart: date.startDate.toDate(),
+      dateEnd: date.endDate.toDate(),
+    });
+    relTimeVisible && setRelTimeVisible((prev) => !prev);
     handleClose();
   };
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleChange = (date: Date) => {
-    //setCurDate(date);
   };
 
   const open = Boolean(anchorEl);
@@ -138,13 +163,11 @@ export const DataPicker = (props: IDataPicker) => {
             onDateChange={handleDateChange}
           />
         </div>
-        <button className={`${styles.dp__item} ${styles.dp__refreshButton}`}>
-          
-        </button>
+        <button
+          className={`${styles.dp__item} ${styles.dp__refreshButton}`}
+        ></button>
       </div>
     </div>
   );
 };
-function getState() {
-  throw new Error("Function not implemented.");
-}
+
