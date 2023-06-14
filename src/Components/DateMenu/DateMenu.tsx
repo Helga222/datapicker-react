@@ -14,20 +14,18 @@ import { setDateEnd, setDateStart, setDateType } from "../../Redux/actions";
 
 export const DateMenu = (props: { type: DateType; onDateChange: DateFunc }) => {
   const [value, setValue] = useState(0);
-  //const curState = useStore<DPType>().getState();
+
   const [curDate, setCurDate] = useState(dayjs("2022-04-17T15:30"));
   const [relativeDate, setRelativeDate] = useState({
     units: "seconds",
     time: 0,
   });
-  // const dispatch = useDispatch();
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   useEffect(() => {
-    // this hook will get called every time myArr has changed
-    // perform some action every time myArr is updated
     onDateChange(curDate);
   }, [curDate]);
 
@@ -46,10 +44,6 @@ export const DateMenu = (props: { type: DateType; onDateChange: DateFunc }) => {
     selectionState?: PickerSelectionState | undefined
   ) => {
     onDateChange(value);
-    /*if (curState.editedDate==DateType.StartDate){
-        dispatch(setDateStart(date.toISOString()));
-      }
-      else dispatch(setDateEnd(date.toISOString()));*/
   };
 
   const handleClockChange = (
@@ -58,11 +52,6 @@ export const DateMenu = (props: { type: DateType; onDateChange: DateFunc }) => {
     selectedView?: "hours" | undefined
   ) => {
     onDateChange(value);
-
-    /*if (curState.editedDate==DateType.StartDate){
-        dispatch(setDateType(date.toISOString()));
-      }
-     else dispatch(setDateEnd(date.toISOString()));*/
   };
 
   const handleRelativeTimeChange = (

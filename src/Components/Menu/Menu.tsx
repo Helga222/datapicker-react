@@ -1,12 +1,12 @@
 import Link from "@mui/material/Link";
 import styles from "./Menu.module.css";
 import { useState } from "react";
-import { LinkType, TimeString } from "../../types";
+import { DPRange, LinkType, TimeString } from "../../types";
 
 interface IMenu {
   timeString:TimeString,
   onHandleClick:(time: TimeString) => void,
-  onHandleLink:(message:string)=>void
+  onHandleLink:(message:LinkType)=>void
 }
 interface ILink {
   e:React.MouseEvent<HTMLAnchorElement, MouseEvent> | React.MouseEvent<HTMLSpanElement>
