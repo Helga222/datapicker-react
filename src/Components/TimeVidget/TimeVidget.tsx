@@ -3,13 +3,22 @@ import styles from "./TimeVidget.module.css";
 import { DPType, DateFunc, DateType,TimeString } from "../../types";
 
 import FilledInput from "@mui/material/FilledInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TimeInteractive } from "../TimeInteractive/TimeInteractive";
 
 
 
-export const TimeVidget = ( props:{timeString:TimeString ,curDate:DPType,onDateChange:DateFunc}) => {
-  const[visible,setVisible] = useState(true);
+export const TimeVidget = ( props:{timeString:TimeString,relateTimeVisible:boolean ,curDate:DPType,onDateChange:DateFunc}) => {
+  const[visible,setVisible] = useState(props.relateTimeVisible);
+
+  useEffect(()=>{
+    setVisible(props.relateTimeVisible);
+  },[props.relateTimeVisible]);
+
+  const handleClick=(e:React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
+    e.preventDefault();
+    setVisible(!visible);
+  }
 
   return (
     <div>
@@ -24,7 +33,7 @@ export const TimeVidget = ( props:{timeString:TimeString ,curDate:DPType,onDateC
             value={`${props.timeString.since} ${props.timeString.time} ${props.timeString.unit}`}
             hiddenLabel
             size="small"
-            onClick={()=>setVisible(!visible)}
+            onClick={handleClick}
           />
       :
       <TimeInteractive timeString={props.timeString} curDate={props.curDate} onDateChange={props.onDateChange} />

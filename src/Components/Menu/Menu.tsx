@@ -1,6 +1,6 @@
 import Link from "@mui/material/Link";
 import styles from "./Menu.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DPRange, LinkType, TimeString } from "../../types";
 
 interface IMenu {
@@ -14,7 +14,11 @@ interface ILink {
 
 export const Menu = (props:IMenu) => {
 
-  const [timeString,setTimeString] = useState(props.timeString)
+  const [timeString,setTimeString] = useState(props.timeString);
+
+  useEffect(()=>{
+    setTimeString(props.timeString);
+  },[props.timeString])
 
   const handleCahngeSelect = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>)=>{
     event.preventDefault();

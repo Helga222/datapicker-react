@@ -8,13 +8,18 @@ import { DPRange, DPType, DateType, LinkType, TimeString } from "../../types";
 import { TimeVidget } from "../TimeVidget/TimeVidget";
 import dayjs, { Dayjs } from "dayjs";
 import Popover from "@mui/material/Popover";
-import { ISOStrToDPRange, calcDate, calcThisDay, calcYesterday } from "../../utils";
+import {
+  ISOStrToDPRange,
+  calcDate,
+  calcThisDay,
+  calcYesterday,
+} from "../../utils";
 
 interface IDataPicker {
   onChange: (range: DPRange) => void;
 }
 export const DataPicker = (props: IDataPicker) => {
-
+  const [relTimeVisible, setRelTimeVisible] = useState(true);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [timeString, setTimeString] = useState<TimeString>({
     since: "Last",
@@ -22,22 +27,22 @@ export const DataPicker = (props: IDataPicker) => {
     unit: "second",
   });
   const now = new Date();
+
   const [curDate, setCurDate] = useState<DPType>({
     dateStart: now,
     dateEnd: now,
   });
 
   const handleDateChange = (date: Date, type: DateType) => {
-    let range:DPRange;
+    let range: DPRange;
     const dateString = date.toISOString();
     if (type === DateType.StartDate) {
       setCurDate({ ...curDate, dateStart: date });
-      range = {startDate:dayjs(date),endDate:dayjs(curDate.dateEnd)};
-
+      range = { startDate: dayjs(date), endDate: dayjs(curDate.dateEnd) };
     } else {
       setCurDate({ ...curDate, dateEnd: date });
-      range = {startDate:dayjs(curDate.dateStart),endDate:dayjs(date)};
-    };
+      range = { startDate: dayjs(curDate.dateStart), endDate: dayjs(date) };
+    }
     props.onChange(range);
   };
 
@@ -48,10 +53,11 @@ export const DataPicker = (props: IDataPicker) => {
   };
 
   const handleApplyDate = (time: TimeString) => {
+    setRelTimeVisible(prev=>(prev=true));
     setTimeString(time);
     const range = calcDate(time);
     props.onChange(range);
-
+    setCurDate({...curDate,dateStart:range.startDate.toDate(),dateEnd:range.endDate.toDate()})
     handleClose();
   };
 
@@ -116,12 +122,17 @@ export const DataPicker = (props: IDataPicker) => {
         >
           <div>
             {" "}
-            <Menu onHandleLink={handleLinkClick} onHandleClick={handleApplyDate} timeString={timeString} />
+            <Menu
+              onHandleLink={handleLinkClick}
+              onHandleClick={handleApplyDate}
+              timeString={timeString}
+            />
           </div>
         </Popover>
 
         <div className={`${styles.dp__item} ${styles.dp__date}`}>
           <TimeVidget
+            relateTimeVisible={relTimeVisible}
             timeString={timeString}
             curDate={curDate}
             onDateChange={handleDateChange}
