@@ -48,6 +48,7 @@ export const TimeInteractive = (props: {
       <div className={styles.ti__item}>
         <TextField
           aria-describedby={idStart}
+          placeholder=""
           size="small"
           fullWidth
           inputProps={{ style: { textAlign: "right" } }}
@@ -95,6 +96,7 @@ export const TimeInteractive = (props: {
           variant="filled"
           onClick={handleClickEnd}
           value={`${props.curDate.dateEnd}`}
+          placeholder=""
         />
         <Popover
           id={idEnd}

@@ -25,6 +25,7 @@ export const TimeVidget = (props: {
     <div>
       {visible ? (
         <FilledInput
+          placeholder=""
           readOnly
           disableUnderline={true}
           sx={{ input: { cursor: "pointer" } }}

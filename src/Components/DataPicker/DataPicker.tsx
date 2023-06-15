@@ -3,7 +3,7 @@ import styles from "./DataPicker.module.css";
 import { Menu } from "../Menu/Menu";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { DPRange, DPType, DateType, LinkType, TimeString } from "../../types";
+import { DPType, DateType, LinkType, TimeString } from "../../types";
 import { TimeVidget } from "../TimeVidget/TimeVidget";
 import dayjs, { Dayjs } from "dayjs";
 import Popover from "@mui/material/Popover";
@@ -20,7 +20,7 @@ import {
 } from "../../utils";
 
 interface IDataPicker {
-  onChange: (range: DPRange) => void;
+  onChange: (range: DPType) => void;
 }
 export const DataPicker = (props: IDataPicker) => {
   const [relTimeVisible, setRelTimeVisible] = useState(true);
@@ -38,14 +38,14 @@ export const DataPicker = (props: IDataPicker) => {
   });
 
   const handleDateChange = (date: Date, type: DateType) => {
-    let range: DPRange;
+    let range: DPType;
 
     if (type === DateType.StartDate) {
       setCurDate({ ...curDate, dateStart: date });
-      range = { startDate: dayjs(date), endDate: dayjs(curDate.dateEnd) };
+      range = { dateStart: date, dateEnd: curDate.dateEnd };
     } else {
       setCurDate({ ...curDate, dateEnd: date });
-      range = { startDate: dayjs(curDate.dateStart), endDate: dayjs(date) };
+      range = { dateStart: curDate.dateStart, dateEnd: date};
     }
     props.onChange(range);
   };
@@ -63,14 +63,14 @@ export const DataPicker = (props: IDataPicker) => {
     props.onChange(range);
     setCurDate({
       ...curDate,
-      dateStart: range.startDate.toDate(),
-      dateEnd: range.endDate.toDate(),
+      dateStart: range.dateStart,
+      dateEnd: range.dateEnd,
     });
     handleClose();
   };
 
   const handleLinkClick = (range: LinkType) => {
-    let date: DPRange;
+    let date: DPType;
     switch (range) {
       case "yesterday":
         date = calcYesterday();
@@ -104,8 +104,8 @@ export const DataPicker = (props: IDataPicker) => {
     props.onChange(date);
     setCurDate({
       ...curDate,
-      dateStart: date.startDate.toDate(),
-      dateEnd: date.endDate.toDate(),
+      dateStart: date.dateStart,
+      dateEnd: date.dateEnd,
     });
     relTimeVisible && setRelTimeVisible((prev) => !prev);
     handleClose();

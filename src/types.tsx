@@ -16,10 +16,7 @@ export type DPType = {
   dateEnd:Date,
 }
 
-export type DPRange = {
-  startDate:Dayjs,
-  endDate:Dayjs,
-}
+
 
 export type LinkType = 'yesterday' | 'today' | 'this week' | 'this month' | 'this year' | 'week to date' | 'month to date' | 'year to date';  
 

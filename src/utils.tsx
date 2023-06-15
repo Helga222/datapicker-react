@@ -1,61 +1,61 @@
 import dayjs from "dayjs";
-import { DPRange, TimeString } from "./types";
+import { DPType, TimeString } from "./types";
 
 const now = dayjs();
-export const calcDate = (date: TimeString): DPRange => {
+export const calcDate = (date: TimeString): DPType => {
   let newDate;
   if (date.since === "Last") {
     newDate = now.subtract(date.time, date.unit);
-    return { startDate: newDate, endDate: now };
+    return { dateStart: newDate.toDate(), dateEnd: now.toDate() };
   } else {
     newDate = now.add(date.time, date.unit);
-    return { startDate: now, endDate: newDate };
+    return { dateStart: now.toDate(), dateEnd: newDate.toDate() };
   }
 };
-export const calcThisDay = (): DPRange => {
+export const calcThisDay = (): DPType => {
   const dateStart = now.startOf("day");
   const dateEnd = now.endOf("day");
-  return { startDate: dateStart, endDate: dateEnd };
+  return { dateStart: dateStart.toDate(), dateEnd: dateEnd.toDate() };
 };
 
-export const calcThisWeek = (): DPRange => {
+export const calcThisWeek = (): DPType => {
   const dateStart = now.startOf("week");
   const dateEnd = now.endOf("week");
-  return { startDate: dateStart, endDate: dateEnd };
+  return { dateStart: dateStart.toDate(), dateEnd: dateEnd.toDate() };
 };
 
-export const calcYesterday = (): DPRange => {
+export const calcYesterday = (): DPType => {
   const yesterday = now.subtract(1, "day");
   const yeastStart = yesterday.startOf("day");
   const yestEnd = yesterday.endOf("day");
-  return { startDate: yeastStart, endDate: yestEnd };
+  return { dateStart: yeastStart.toDate(), dateEnd: yestEnd.toDate() };
 };
 
-export const calcThisMonth = (): DPRange => {
+export const calcThisMonth = (): DPType => {
   const monthStart = now.startOf("month");
   const monthEnd = now.endOf("month");
-  return { startDate: monthStart, endDate: monthEnd };
+  return { dateStart: monthStart.toDate(), dateEnd: monthEnd.toDate() };
 };
 
-export const calcThisYear = (): DPRange => {
+export const calcThisYear = (): DPType => {
   const yearStart = now.startOf("year");
   const yearEnd = now.endOf("year");
-  return { startDate: yearStart, endDate: yearEnd };
+  return { dateStart: yearStart.toDate(), dateEnd: yearEnd.toDate() };
 };
 
-export const calcWeekToDate = (): DPRange => {
+export const calcWeekToDate = (): DPType => {
   const weekStart = now.startOf("week");
-  return { startDate: weekStart, endDate: now };
+  return { dateStart: weekStart.toDate(), dateEnd: now.toDate() };
 };
 
-export const calcMonthToDate = (): DPRange => {
+export const calcMonthToDate = (): DPType => {
   const monthStart = now.startOf("month");
-  return { startDate: monthStart, endDate: now };
+  return { dateStart: monthStart.toDate(), dateEnd: now.toDate() };
 };
 
-export const calcYearToDate = (): DPRange => {
+export const calcYearToDate = (): DPType => {
   const yearStart = now.startOf("year");
-  return { startDate: yearStart, endDate: now };
+  return { dateStart: yearStart.toDate(), dateEnd: now.toDate() };
 };
 
 export const ISOStrToDPRange = (dateString: string) => dayjs(dateString);

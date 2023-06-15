@@ -4,13 +4,14 @@ import "./App.css";
 import { DataPicker } from "./Components/DataPicker/DataPicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DPRange } from "./types";
+import { DPType } from "./types";
+
 
 function App() {
 
-  const handleChange = (range:DPRange)=>{
-    const stDate = range.startDate;
-    const endDate = range.endDate;
+  const handleChange = (range:DPType)=>{
+    const stDate = range.dateStart;
+    const endDate = range.dateEnd;
   }
   return (
     <div className="App">

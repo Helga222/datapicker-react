@@ -6,14 +6,21 @@ import { TabPanel } from "../TabPanel";
 import { DigitalClock } from "@mui/x-date-pickers/DigitalClock/DigitalClock";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { PickerSelectionState } from "@mui/x-date-pickers/internals/hooks/usePicker";
-import dayjs, {ManipulateType } from "dayjs";
+import dayjs, { ManipulateType } from "dayjs";
 
 import { DPType, DateType, DateFunc, TimeString } from "../../types";
 
-
-export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: DateFunc;timeString:TimeString }) => {
+export const DateMenu = (props: {
+  type: DateType;
+  curDate: DPType;
+  onDateChange: DateFunc;
+  timeString: TimeString;
+}) => {
   const [value, setValue] = useState(0);
-  const initialDate = (props.type===DateType.StartDate) ? props.curDate.dateStart : props.curDate.dateEnd;
+  const initialDate =
+    props.type === DateType.StartDate
+      ? props.curDate.dateStart
+      : props.curDate.dateEnd;
   const [curDate, setCurDate] = useState(dayjs(initialDate));
   const [relativeDate, setRelativeDate] = useState({
     units: "seconds",
@@ -25,16 +32,15 @@ export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: 
   };
 
   useEffect(() => {
-    if (props.type===DateType.StartDate){
-      setCurDate(dayjs(props.curDate.dateStart))
-    }
-    else setCurDate(dayjs(props.curDate.dateEnd))
+    if (props.type === DateType.StartDate) {
+      setCurDate(dayjs(props.curDate.dateStart));
+    } else setCurDate(dayjs(props.curDate.dateEnd));
+
     onDateChange(curDate);
   }, [curDate]);
 
   const onDateChange = (value: dayjs.Dayjs | null) => {
     if (value) {
- 
       setCurDate(value);
       const date = value.toDate();
       if (props.type === DateType.StartDate) {
@@ -107,15 +113,15 @@ export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: 
           <input
             name="time"
             className={`${styles.tab__number} ${styles.menu__select__item}`}
-            defaultValue={0}
             type="number"
             onChange={handleRelativeTimeChange}
-            value={props.timeString.time}
+            value={relativeDate.time}
           />
           <select
             name="units"
             className={styles.tab__input}
-            onChange={handleRelativeUnitChange} value={props.timeString.unit}
+            onChange={handleRelativeUnitChange}
+            value={relativeDate.units}
           >
             <option value="second">Seconds ago</option>
             <option value="minute">Minutes ago</option>
@@ -123,9 +129,7 @@ export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: 
             <option value="day">Days ago</option>
             <option value="week">Weeks ago</option>
             <option value="year">Years ago</option>
-          
           </select>
-
         </div>
       </TabPanel>
       <TabPanel value={value} index={2}>

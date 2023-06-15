@@ -1,7 +1,7 @@
 import Link from "@mui/material/Link";
 import styles from "./Menu.module.css";
 import { useEffect, useState } from "react";
-import { DPRange, LinkType, TimeString } from "../../types";
+import {LinkType, TimeString } from "../../types";
 
 interface IMenu {
   timeString:TimeString,
@@ -47,7 +47,7 @@ export const Menu = (props:IMenu) => {
             <option value="Last">Last</option>
             <option value="Next">Next</option>
           </select>
-          <input name="time" onChange={handleCahngeSelect} defaultValue={0}
+          <input name="time" onChange={handleCahngeSelect} 
             className={`${styles.menu__select__number} ${styles.menu__select__item}`}
             type="number" value={timeString.time}
           />
@@ -90,19 +90,19 @@ export const Menu = (props:IMenu) => {
             <Link underline="hover" href="#">Reference (doesn`t work)</Link>
           </div>
           <div className={styles.menu__recently__item}>
-            <Link href="asfasfasf" underline="hover">Reference (doesn`t work)</Link>
+            <Link href="#" underline="hover">Reference (doesn`t work)</Link>
           </div>
           <div className={styles.menu__recently__item}>
-          <Link href="asfasfasf" underline="hover">Reference (doesn`t work)</Link>
+          <Link href="#" underline="hover">Reference (doesn`t work)</Link>
           </div>
           <div className={styles.menu__recently__item}>
-          <Link href="asfasfasf" underline="hover">Reference (doesn`t work)</Link>
+          <Link href="#" underline="hover">Reference (doesn`t work)</Link>
           </div>
           <div className={styles.menu__recently__item}>
-          <Link href="asfasfasf" underline="hover">Reference (doesn`t work)</Link>
+          <Link href="#" underline="hover">Reference (doesn`t work)</Link>
           </div>
           <div className={styles.menu__recently__item}>
-          <Link href="asfasfasf" underline="hover">Reference (doesn`t work)</Link>
+          <Link href="#" underline="hover">Reference (doesn`t work)</Link>
           </div>
         </div>
       </div>
