@@ -4,13 +4,12 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { TabPanel } from "../TabPanel";
 import { DigitalClock } from "@mui/x-date-pickers/DigitalClock/DigitalClock";
-import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { PickerSelectionState } from "@mui/x-date-pickers/internals/hooks/usePicker";
-import dayjs, { Dayjs, ManipulateType } from "dayjs";
-import { useDispatch, useStore } from "react-redux";
+import dayjs, {ManipulateType } from "dayjs";
+
 import { DPType, DateType, DateFunc, TimeString } from "../../types";
-import { setDateEnd, setDateStart, setDateType } from "../../Redux/actions";
+
 
 export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: DateFunc;timeString:TimeString }) => {
   const [value, setValue] = useState(0);
@@ -131,7 +130,7 @@ export const DateMenu = (props: { type: DateType; curDate:DPType; onDateChange: 
       </TabPanel>
       <TabPanel value={value} index={2}>
         <div className={styles.tab__content}></div>
-        Item Three
+        Not implemented
       </TabPanel>
     </div>
   );

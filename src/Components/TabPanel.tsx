@@ -8,7 +8,7 @@ interface TabPanelProps {
   value: number;
 }
 
-export const TabPanel = (props: TabPanelProps)=>{
+export const TabPanel = (props: TabPanelProps) => {
   const { children, value, index, ...other } = props;
 
   return (
@@ -20,10 +20,10 @@ export const TabPanel = (props: TabPanelProps)=>{
       {...other}
     >
       {value === index && (
-        <Box sx={{ p:1 }}>
+        <Box sx={{ p: 1 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
     </div>
   );
-}
+};

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import {useState } from "react";
 import styles from "./DataPicker.module.css";
 import { Menu } from "../Menu/Menu";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";

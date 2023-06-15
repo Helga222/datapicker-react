@@ -117,9 +117,9 @@ export const Menu = (props:IMenu) => {
           <select
             className={`${styles.menu__select__input} ${styles.menu__select__item}`}
           >
-            <option value="">Секунды</option>
-            <option value="">Минуты</option>
-            <option value="">Часы</option>
+            <option value="">Seconds</option>
+            <option value="">Minutes</option>
+            <option value="">Hours</option>
           </select>
           <button
             className={`${styles.menu__select__button} ${styles.menu__select__item}`}

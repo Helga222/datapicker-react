@@ -3,17 +3,17 @@ import { DPType, DateType } from "../types";
 
 const now = dayjs();
 const initialState = {
-  dateStart: now.toDate().toISOString(),
-  dateEnd: now.toDate().toISOString(),
-  editedDate: DateType.StartDate,
+  dateStart: now.toDate(),
+  dateEnd: now.toDate(),
+
 };
 interface ActionStart {
-  date: string;
+  date: Date;
   type: "SET_DATESTART";
 }
 
 interface ActionEnd {
-  date: string;
+  date: Date;
   type: "SET_DATEEND";
 }
 

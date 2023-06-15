@@ -11,7 +11,7 @@ select {
 }
 
 .item {
-  
+
   text-align: left;
 }
 
@@ -32,35 +32,30 @@ select {
   height: 40px;
 }
 
-.menu__common {
-}
+.menu__common {}
 
-.menu__grid{
+.menu__grid {
   margin-top: 10px;
   display: grid;
   grid: repeat(4, 20px) / 1fr 1fr;
 }
 
-.menu__recently {
+.menu__recently {}
 
-}
-
-.menu__recently__content{
+.menu__recently__content {
   margin-top: 10px;
   overflow: auto;
   height: 100%;
 }
 
-.menu__recently__item{
+.menu__recently__item {
   height: 10px;
   margin-bottom: 10px;
 }
 
-
-
 .menu__refresh {}
 
-.menu__refresh__content{
+.menu__refresh__content {
   margin-top: 10px;
   display: flex;
   gap: 2px;

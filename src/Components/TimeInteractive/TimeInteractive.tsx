@@ -1,5 +1,5 @@
 import TextField from "@mui/material/TextField";
-import { DPType, DateFunc, DateType,TimeString } from "../../types";
+import { DPType, DateFunc, DateType, TimeString } from "../../types";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import styles from "./TimeInteractive.module.css";
@@ -7,19 +7,21 @@ import { useState } from "react";
 import Popover from "@mui/material/Popover";
 import { DateMenu } from "../DateMenu/DateMenu";
 
-export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onDateChange:DateFunc}) => {
+export const TimeInteractive = (props: {
+  timeString: TimeString;
+  curDate: DPType;
+  onDateChange: DateFunc;
+}) => {
   const [anchorElStart, setAnchorElStart] = useState<HTMLElement | null>(null);
   const [anchorElEnd, setAnchorElEnd] = useState<HTMLElement | null>(null);
 
-
   const [dateType, setDateType] = useState(DateType.StartDate);
-
 
   const handleClickStart = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     setAnchorElEnd(null);
-    
+
     setAnchorElStart(event.currentTarget);
     setDateType(DateType.StartDate);
   };
@@ -71,7 +73,12 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
         >
           <div>
             {" "}
-            <DateMenu timeString={props.timeString}  type={dateType} curDate={props.curDate} onDateChange={props.onDateChange}/>
+            <DateMenu
+              timeString={props.timeString}
+              type={dateType}
+              curDate={props.curDate}
+              onDateChange={props.onDateChange}
+            />
           </div>
         </Popover>
       </div>
@@ -79,7 +86,7 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
         <ArrowForwardIcon fontSize="medium" />
       </div>
       <div className={styles.ti__item}>
-      <TextField
+        <TextField
           aria-describedby={idEnd}
           size="small"
           fullWidth
@@ -105,7 +112,12 @@ export const TimeInteractive = (props:{timeString: TimeString,curDate:DPType,onD
         >
           <div>
             {" "}
-            <DateMenu timeString={props.timeString} type={dateType} curDate={props.curDate} onDateChange={props.onDateChange}/>
+            <DateMenu
+              timeString={props.timeString}
+              type={dateType}
+              curDate={props.curDate}
+              onDateChange={props.onDateChange}
+            />
           </div>
         </Popover>
       </div>
